@@ -5,10 +5,6 @@ const createWork = async function (data) {
   return newWork;
 };
 
-const getAllWork = async function () {
-  const skills = await Work.findAll();
-  return skills;
-};
 const getWork = async function (data) {
   const id = parseInt(data);
   if (!id) return null;

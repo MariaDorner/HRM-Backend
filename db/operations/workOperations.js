@@ -5,16 +5,6 @@ const createWork = async function (data) {
   return newWork;
 };
 
-const getWork = async function (data) {
-  const id = parseInt(data);
-  if (!id) return null;
-
-  const work = await Work.findOne({ where: { id } });
-  if (!work) return null;
-
-  return work;
-};
-
 const updateWork = async function (data, body) {
   const id = parseInt(data);
 
@@ -25,7 +15,6 @@ const updateWork = async function (data, body) {
 
 module.exports = {
   createWork,
-  getAllWork,
-  getWork,
+
   updateWork,
 };

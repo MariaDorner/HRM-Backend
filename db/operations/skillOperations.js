@@ -5,20 +5,6 @@ const createSkill = async function (data) {
   return newSkill;
 };
 
-const getSkills = async function () {
-  const skills = await Skill.findAll();
-  return skills;
-};
-const getSkill = async function (data) {
-  const id = parseInt(data);
-  if (!id) return null;
-
-  const skill = await Skill.findOne({ where: { id } });
-  if (!skill) return null;
-
-  return skill;
-};
-
 const updateSkill = async function (data, body) {
   const id = parseInt(data);
 
@@ -29,7 +15,6 @@ const updateSkill = async function (data, body) {
 
 module.exports = {
   createSkill,
-  getSkills,
-  getSkill,
+
   updateSkill,
 };

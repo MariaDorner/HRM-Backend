@@ -1,53 +1,10 @@
-const Skill = require("../models/skill");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
-const Work = require("../models/work");
-const Department = require("../models/department");
 
 const createUser = async function (data) {
   data.password = await bcrypt.hash(data.password, 12);
   const newUser = await User.create(data);
   return newUser;
-};
-
-const getUsers = async function () {
-  const users = await User.findAll();
-  return users;
-};
-
-const getUser = async function (
-  data,
-  options = { withSkills: false, withWork: false }
-) {
-  const id = parseInt(data);
-  if (!id) return null;
-  const include = [];
-  if (options.withSkills) {
-    include.push({
-      model: Skill,
-      through: { attributes: [] },
-    });
-  }
-  if (options.withWork) {
-    include.push({
-      model: Work,
-      through: { attributes: [] },
-      include: [
-        {
-          model: Department,
-          attributes: ["id", "title"],
-        },
-      ],
-    });
-  }
-  const user = await User.findOne({
-    where: { id },
-    attributes: { exclude: ["password"] },
-    include: include,
-  });
-  if (!user) return null;
-
-  return user;
 };
 
 const updateUser = async function (data, body) {
@@ -72,8 +29,7 @@ const updateUser = async function (data, body) {
 
 module.exports = {
   createUser,
-  getUsers,
-  getUser,
+
   updateUser,
   // deleteUser,
 };

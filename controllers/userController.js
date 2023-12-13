@@ -1,7 +1,6 @@
 const {
   createUser,
-  getUsers,
-  getUser,
+
   updateUser,
   // deleteUser,
 } = require("../db/operations/userOperations");
@@ -14,27 +13,6 @@ exports.createUser = async (req, res) => {
     data: {
       user: newUser,
     },
-  });
-};
-exports.getUsers = async (req, res) => {
-  const users = await getUsers();
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      users,
-    },
-  });
-};
-exports.getUser = async (req, res) => {
-  const user = await getUser(req.params.id, {
-    withWork: true,
-    withSkills: true,
-  });
-  if (user === null) return res.status(404).send();
-  res.status(200).json({
-    status: "sucess",
-    data: { user },
   });
 };
 

@@ -6,6 +6,7 @@ const userRoutes = require("./routes/userRoutes");
 const skillRoutes = require("./routes/skillRoutes");
 const workRoutes = require("./routes/workRoutes");
 const departmentRoutes = require("./routes/departmentRoutes");
+const educationRoutes = require("./routes/educationRoutes");
 // const cors = require("cors");
 
 init().then(() => {
@@ -24,6 +25,7 @@ init().then(() => {
   app.use("/skills", skillRoutes);
   app.use("/work", workRoutes);
   app.use("/departments", departmentRoutes);
+  app.use("/education", educationRoutes);
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });

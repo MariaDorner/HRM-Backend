@@ -30,6 +30,7 @@ exports.getUser = async (req, res) => {
   const user = await getUser(req.params.id, {
     withWork: true,
     withSkills: true,
+    withEducation: true,
   });
   if (user === null) return res.status(404).send();
   res.status(200).json({

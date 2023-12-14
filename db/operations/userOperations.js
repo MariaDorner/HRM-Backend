@@ -3,6 +3,7 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const Work = require("../models/work");
 const Department = require("../models/department");
+const Education = require("../models/education");
 
 const createUser = async function (data) {
   data.password = await bcrypt.hash(data.password, 12);
@@ -17,7 +18,7 @@ const getUsers = async function () {
 
 const getUser = async function (
   data,
-  options = { withSkills: false, withWork: false }
+  options = { withSkills: false, withWork: false, withEducation: false }
 ) {
   const id = parseInt(data);
   if (!id) return null;
@@ -25,6 +26,7 @@ const getUser = async function (
   if (options.withSkills) {
     include.push({
       model: Skill,
+      attributes: ["name", "description"],
       through: { attributes: [] },
     });
   }
@@ -38,6 +40,11 @@ const getUser = async function (
           attributes: ["id", "title"],
         },
       ],
+    });
+  }
+  if (options.withEducation) {
+    include.push({
+      model: Education,
     });
   }
   const user = await User.findOne({

@@ -3,10 +3,10 @@ const sequelize = require("../connection");
 
 const Work = sequelize.define("Work", {
   title: { type: DataTypes.STRING },
-  managername: { type: DataTypes.STRING },
-  startdate: { type: DataTypes.DATEONLY },
+  manager_name: { type: DataTypes.STRING },
+  start_date: { type: DataTypes.DATEONLY },
   description: { type: DataTypes.STRING },
-  iscurrent: { type: DataTypes.BOOLEAN },
+  is_current: { type: DataTypes.BOOLEAN },
 });
 
 module.exports = Work;

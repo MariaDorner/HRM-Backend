@@ -7,14 +7,25 @@ const {
 } = require("../db/operations/userOperations");
 
 exports.createUser = async (req, res) => {
-  console.log(req.body);
-  const newUser = await createUser(req.body);
-  res.status(201).json({
-    status: "success",
-    data: {
-      user: newUser,
-    },
-  });
+  try {
+    const profileImage = req.file;
+
+    const userData = JSON.parse(req.body.userData);
+    const newUser = await createUser(userData, profileImage);
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        user: newUser,
+      },
+    });
+  } catch (error) {
+    console.error("Error in createUser controller:", error);
+    res.status(500).json({
+      status: "error",
+      message: "Internal Server Error",
+    });
+  }
 };
 exports.getUsers = async (req, res) => {
   const users = await getUsers();

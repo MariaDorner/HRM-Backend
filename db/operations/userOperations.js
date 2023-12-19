@@ -4,11 +4,28 @@ const bcrypt = require("bcryptjs");
 const Work = require("../models/work");
 const Department = require("../models/department");
 const Education = require("../models/education");
+const { createFile } = require("./file");
 
-const createUser = async function (data) {
-  data.password = await bcrypt.hash(data.password, 12);
-  const newUser = await User.create(data);
-  return newUser;
+const createUser = async (userData, profileImageFile) => {
+  try {
+    console.log("Profile Image File:", profileImageFile); // Add this line for debugging
+    userData.password = await bcrypt.hash(userData.password, 12);
+    // Upload the image and get the file path or identifier
+    // const imageReference = await uploadImage(profileImageFile);
+    const newFile = await createFile(profileImageFile);
+    // Create the user with the image reference
+    const newUser = await User.create({
+      status: true,
+      ...userData,
+      profileImage: newFile.id,
+    });
+    if (userData.skills) newUser.setSkills(userData.skills);
+    if (userData.work) newUser.setWorks(userData.work);
+    return newUser;
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error;
+  }
 };
 
 const getUsers = async function () {

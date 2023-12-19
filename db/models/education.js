@@ -3,7 +3,7 @@ const sequelize = require("../connection");
 
 const Education = sequelize.define("Education", {
   name: { type: DataTypes.STRING },
-  duration: { type: DataTypes.INTEGER },
+  duration: { type: DataTypes.STRING },
   description: { type: DataTypes.STRING },
 });
 

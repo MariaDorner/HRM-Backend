@@ -11,6 +11,7 @@ const User = sequelize.define("User", {
   address: { type: DataTypes.STRING },
   email: { type: DataTypes.STRING },
   description: { type: DataTypes.STRING },
+  profileImage: { type: DataTypes.STRING },
   status: {
     type: DataTypes.BOOLEAN,
     allowNull: false,

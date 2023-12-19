@@ -7,15 +7,17 @@ const skillRoutes = require("./routes/skillRoutes");
 const workRoutes = require("./routes/workRoutes");
 const departmentRoutes = require("./routes/departmentRoutes");
 const educationRoutes = require("./routes/educationRoutes");
-// const cors = require("cors");
+const fileRoutes = require("./routes/fileRoutes");
+const cors = require("cors");
+const config = require("./config");
 
 init().then(() => {
-  // app.use(
-  //   cors({
-  //     origin: config.clientUrl,
-  //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  //   })
-  // );
+  app.use(
+    cors({
+      origin: config.clientUrl,
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    })
+  );
   app.use(express.json({ limit: "10kb" }));
   app.get("/", (req, res) => {
     res.send("Hello World!");
@@ -26,6 +28,7 @@ init().then(() => {
   app.use("/work", workRoutes);
   app.use("/departments", departmentRoutes);
   app.use("/education", educationRoutes);
+  app.use("/files", fileRoutes);
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });

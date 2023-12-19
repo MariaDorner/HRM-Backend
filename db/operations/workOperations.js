@@ -1,13 +1,18 @@
 const Work = require("../models/work");
 
+/**
+ * a function that creates a work
+ * @param {*} data
+ * @returns user
+ */
 const createWork = async function (data) {
   const newWork = await Work.create(data);
   return newWork;
 };
 
 const getAllWork = async function () {
-  const skills = await Work.findAll();
-  return skills;
+  const allwork = await Work.findAll();
+  return allwork;
 };
 const getWork = async function (data) {
   const id = parseInt(data);

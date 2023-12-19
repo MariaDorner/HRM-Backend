@@ -10,4 +10,5 @@ module.exports = {
     host: process.env.DATABASE_HOST,
     dialect: process.env.DATABASE_DIALECT,
   },
+  clientUrl: process.env.CLIENT_URL,
 };

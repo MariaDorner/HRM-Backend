@@ -8,6 +8,7 @@ const workRoutes = require("./routes/workRoutes");
 const departmentRoutes = require("./routes/departmentRoutes");
 const educationRoutes = require("./routes/educationRoutes");
 const fileRoutes = require("./routes/fileRoutes");
+const memberRoutes = require("./routes/memberRoutes");
 const cors = require("cors");
 const config = require("./config");
 
@@ -29,6 +30,7 @@ init().then(() => {
   app.use("/departments", departmentRoutes);
   app.use("/education", educationRoutes);
   app.use("/files", fileRoutes);
+  app.use("/create-member", memberRoutes);
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });

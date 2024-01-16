@@ -21,6 +21,7 @@ const createUser = async (userData, profileImageFile) => {
     });
     if (userData.skills) newUser.setSkills(userData.skills);
     if (userData.work) newUser.setWorks(userData.work);
+    if (userData.education) newUser.setEducation(userData.education);
     return newUser;
   } catch (error) {
     console.error("Error creating user:", error);
@@ -29,7 +30,7 @@ const createUser = async (userData, profileImageFile) => {
 };
 
 const getUsers = async function () {
-  const users = await User.findAll();
+  const users = await User.findAll({ where: { status: true } });
   return users;
 };
 
@@ -87,17 +88,17 @@ const updateUser = async function (data, body) {
   if (body.work) userInstance.setWorks(body.work);
   return userInstance;
 };
-// const deleteUser = async function (data) {
-//   const id = parseInt(data);
-//   const user = await User.update({ isDeleted: true }, { where: { id } });
+const deleteUser = async function (data) {
+  const id = parseInt(data);
+  const user = await User.update({ status: false }, { where: { id } });
 
-//   return user;
-// };
+  return user;
+};
 
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
-  // deleteUser,
+  deleteUser,
 };

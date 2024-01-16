@@ -3,14 +3,14 @@ const {
   getUsers,
   getUser,
   updateUser,
-  // deleteUser,
+  deleteUser,
 } = require("../db/operations/userOperations");
 
 exports.createUser = async (req, res) => {
   try {
     const profileImage = req.file;
 
-    const userData = JSON.parse(req.body.userData);
+    const userData = req.body;
     const newUser = await createUser(userData, profileImage);
 
     res.status(201).json({
@@ -58,13 +58,13 @@ exports.updateUser = async (req, res) => {
     data: { user },
   });
 };
-// exports.deleteUser = async (req, res) => {
-//   deleteUser(req.params.id);
-//   res.status(200).json({
-//     status: "success",
-//     data: null,
-//   });
-// };
+exports.deleteUser = async (req, res) => {
+  deleteUser(req.params.id);
+  res.status(200).json({
+    status: "success",
+    data: null,
+  });
+};
 
 // exports.permenantlyDelete = async (req, res) => {
 //   const id = parseInt(req.params.id);

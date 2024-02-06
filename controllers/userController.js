@@ -28,7 +28,7 @@ exports.createUser = async (req, res) => {
   }
 };
 exports.getUsers = async (req, res) => {
-  const users = await getUsers();
+  const users = await getUsers({ withWork: true });
 
   res.status(200).json({
     status: "success",

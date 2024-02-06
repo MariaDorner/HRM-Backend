@@ -29,8 +29,26 @@ const createUser = async (userData, profileImageFile) => {
   }
 };
 
-const getUsers = async function () {
-  const users = await User.findAll({ where: { status: true } });
+const getUsers = async function (options = { withWork: false }) {
+  const include = [];
+
+  if (options.withWork) {
+    include.push({
+      model: Work,
+      through: { attributes: [] },
+      include: [
+        {
+          model: Department,
+          attributes: ["id", "title"],
+        },
+      ],
+    });
+  }
+  const users = await User.findAll({
+    where: { status: true },
+    attributes: { exclude: ["password"] },
+    include: include,
+  });
   return users;
 };
 

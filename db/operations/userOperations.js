@@ -6,18 +6,17 @@ const Department = require("../models/department");
 const Education = require("../models/education");
 const { createFile } = require("./file");
 
-const createUser = async (userData, profileImageFile) => {
+const createUser = async (userData) => {
   try {
-    console.log("Profile Image File:", profileImageFile); // Add this line for debugging
     userData.password = await bcrypt.hash(userData.password, 12);
     // Upload the image and get the file path or identifier
     // const imageReference = await uploadImage(profileImageFile);
-    const newFile = await createFile(profileImageFile);
+    const { profileImage, ...restUserData } = userData;
     // Create the user with the image reference
     const newUser = await User.create({
       status: true,
-      ...userData,
-      profileImage: newFile.id,
+      ...restUserData,
+      profileImage, // Associate the image with the user
     });
     if (userData.skills) newUser.setSkills(userData.skills);
     if (userData.work) newUser.setWorks(userData.work);
@@ -104,6 +103,7 @@ const updateUser = async function (data, body) {
 
   if (body.skills) userInstance.setSkills(body.skills);
   if (body.work) userInstance.setWorks(body.work);
+  if (body.education) userInstance.addEducation(body.education);
   return userInstance;
 };
 const deleteUser = async function (data) {

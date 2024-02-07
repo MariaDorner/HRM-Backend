@@ -11,7 +11,7 @@ exports.createUser = async (req, res) => {
     const profileImage = req.file;
 
     const userData = req.body;
-    const newUser = await createUser(userData, profileImage);
+    const newUser = await createUser(userData);
 
     res.status(201).json({
       status: "success",
